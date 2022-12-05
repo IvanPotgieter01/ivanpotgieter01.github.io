@@ -7,9 +7,9 @@
 .game {
     width: 700px;
     height: 300px;
-    border: 1px solid black;
+    border: 4px groove;
     margin: auto;
-    
+
 }
 
 #character {
@@ -17,28 +17,50 @@
     height: 50px;
     background-image: url("/img/Bear.jpg");
     position: relative;
-    top: 150px;
+    top: 250px;
 }
 
 .animate {
     animation: jump 0.3s linear;
 }
 
+.animate2 {
+    animation: jump2 0.3s linear;
+}
+
 @keyframes jump {
     0% {
-        top: 150px;
+        top: 250px;
     }
 
     30% {
-        top: 100px;
+        top: 200px;
     }
 
     70% {
-        top: 100px;
+        top: 200px;
     }
 
     100% {
+        top: 250px;
+    }
+}
+
+@keyframes jump2 {
+    0% {
+        top: 200px;
+    }
+
+    30% {
         top: 150px;
+    }
+
+    70% {
+        top: 150px;
+    }
+
+    100% {
+        top: 200px;
     }
 }
 
@@ -49,7 +71,7 @@
     width: 20px;
     height: 20px;
     position: relative;
-    top: 130px;
+    top: 230px;
     left: 500px;
     animation: block 1s infinite linear;
 }
