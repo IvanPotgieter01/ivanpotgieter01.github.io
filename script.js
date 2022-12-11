@@ -1,6 +1,6 @@
 var character = document.getElementById("character");
 var block = document.getElementById("block");
-var counter = 0;
+//var counter = 0;
 function jump() {
     if (character.classList == "animate") { return }
     character.classList.add("animate");
@@ -24,11 +24,11 @@ var checkDead = setInterval(function () {
     let blockLeft = parseInt(window.getComputedStyle(block).getPropertyValue("left"));
     if (blockLeft < 20 && blockLeft > -20 && characterTop >= 230) {
         block.style.animation = "none";
-        alert("Game Over. Your score: " + Math.floor(counter / 100));
-        counter = 0;
+        let person = prompt("Game Over. Your score: " + Math.floor(counter / 100) + ". Please enter your name:", "");
+        //counter = 0;
         block.style.animation = "block 1s infinite linear";
     } else {
-        counter++;
+        //counter++;
         document.getElementById("scoreSpan").innerHTML = Math.floor(counter / 100);
     }
 }, 10);
