@@ -24,7 +24,7 @@ var checkDead = setInterval(function () {
     let blockLeft = parseInt(window.getComputedStyle(block).getPropertyValue("left"));
     if (blockLeft < 20 && blockLeft > -20 && characterTop >= 230) {
         block.style.animation = "none";
-        let person = prompt("Game Over. Your score: " + Math.floor(counter / 100) + ". Please enter your name to add it to the leaderboard:", "");
+        let person = prompt("Game Over. Your score is " + Math.floor(counter / 100) + ". Please enter your name to add it to the leaderboard:", "");
         //alert("Game Over. Your score: " + Math.floor(counter / 100));
         counter = 0;
         block.style.animation = "block 1s infinite linear";
