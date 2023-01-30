@@ -642,6 +642,6 @@ section #services {
 
 
 img {
-    max-width: auto;
-    height: auto;
+    max-width: 100%;
+    height: 100%;
 }
