@@ -1,613 +1,407 @@
-<!DOCTYPE html>
-<html lang="en">
+<!doctype html>
+<html lang="en" data-theme="dark">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Ivan Potgieter - Software Engineer, Cloud & DevSecOps</title>
-<meta name="description" content="Ivan Potgieter - Software Engineer at BMW IT Hub South Africa. Cloud, DevOps and DevSecOps.">
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600;700&family=IBM+Plex+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
-<style>
-  :root{
-    --bg:#0a1929;
-    --bg-panel:#0e2136;
-    --bg-panel-2:#0b1c2d;
-    --grid-line: rgba(148,184,214,0.055);
-    --border: rgba(148,184,214,0.16);
-    --border-soft: rgba(148,184,214,0.09);
-    --text-primary:#e7eef5;
-    --text-muted:#8ca3b8;
-    --text-faint:#5c7186;
-    --amber:#ffb627;
-    --amber-dim: rgba(255,182,39,0.14);
-    --green:#3ed598;
-    --green-dim: rgba(62,213,152,0.14);
-    --mono: 'JetBrains Mono', ui-monospace, monospace;
-    --sans: 'IBM Plex Sans', system-ui, sans-serif;
-    --maxw: 860px;
-  }
-
-  *{box-sizing:border-box; margin:0; padding:0;}
-
-  html{scroll-behavior:smooth;}
-
-  body{
-    background:
-      repeating-linear-gradient(0deg, var(--grid-line) 0px, var(--grid-line) 1px, transparent 1px, transparent 32px),
-      repeating-linear-gradient(90deg, var(--grid-line) 0px, var(--grid-line) 1px, transparent 1px, transparent 32px),
-      var(--bg);
-    color: var(--text-primary);
-    font-family: var(--sans);
-    line-height: 1.6;
-    -webkit-font-smoothing: antialiased;
-  }
-
-  a{ color: inherit; }
-
-  @media (prefers-reduced-motion: reduce){
-    html{ scroll-behavior:auto; }
-    *{ animation-duration: 0.01ms !important; animation-iteration-count: 1 !important; transition-duration: 0.01ms !important; }
-  }
-
-  /* ---------- status bar ---------- */
-  .statusbar{
-    border-bottom: 1px solid var(--border-soft);
-    background: rgba(10,25,41,0.85);
-    backdrop-filter: blur(6px);
-    position: sticky;
-    top:0;
-    z-index: 50;
-  }
-  .statusbar-inner{
-    max-width: var(--maxw);
-    margin: 0 auto;
-    padding: 10px 24px;
-    display:flex;
-    align-items:center;
-    gap:20px;
-    font-family: var(--mono);
-    font-size: 12px;
-    color: var(--text-muted);
-    flex-wrap: wrap;
-  }
-  .statusbar .dot{
-    width:7px; height:7px; border-radius:50%;
-    background: var(--green);
-    display:inline-block;
-    box-shadow: 0 0 8px var(--green);
-    margin-right:7px;
-  }
-  .statusbar .status-ok{ color: var(--green); }
-  .statusbar .sep{ color: var(--border); }
-  .statusbar-spacer{ flex:1; }
-  .statusbar nav{ display:flex; gap:16px; }
-  .statusbar nav a{ text-decoration:none; color: var(--text-muted); transition: color .15s; }
-  .statusbar nav a:hover{ color: var(--amber); }
-
-  /* ---------- shell ---------- */
-  main{ max-width: var(--maxw); margin: 0 auto; padding: 0 24px; }
-
-  section{ padding: 32px 0; border-bottom: 1px solid var(--border-soft); }
-  section:last-of-type{ border-bottom:none; }
-
-  .eyebrow{
-    font-family: var(--mono);
-    font-size: 12px;
-    letter-spacing: 0.14em;
-    text-transform: uppercase;
-    color: var(--amber);
-    display:flex;
-    align-items:center;
-    gap:10px;
-    margin-bottom: 16px;
-  }
-  .eyebrow::before{ content:"//"; color: var(--text-faint); }
-
-  /* ---------- hero ---------- */
-  .hero{ padding-top: 56px; border-bottom: 1px solid var(--border-soft); }
-  .hero-kicker{
-    font-family: var(--mono);
-    font-size: 13px;
-    color: var(--green);
-    margin-bottom: 16px;
-    letter-spacing: 0.02em;
-  }
-  .hero-kicker .caret{
-    display:inline-block;
-    width:8px; height:15px;
-    background: var(--green);
-    margin-left:4px;
-    vertical-align: -2px;
-    animation: blink 1.1s steps(1) infinite;
-  }
-  @keyframes blink{ 50%{ opacity:0; } }
-
-  h1{
-    font-family: var(--mono);
-    font-weight: 700;
-    font-size: clamp(32px, 5.6vw, 52px);
-    line-height: 1.08;
-    letter-spacing: -0.01em;
-    color: var(--text-primary);
-    margin-bottom: 14px;
-  }
-  h1 span{ color: var(--amber); }
-
-  .hero-role{
-    font-family: var(--sans);
-    font-weight: 500;
-    font-size: 18px;
-    color: var(--text-muted);
-    margin-bottom: 14px;
-  }
-
-  .hero-tagline{
-    max-width: 58ch;
-    color: var(--text-muted);
-    font-size: 15px;
-    margin-bottom: 22px;
-    line-height: 1.8;
-  }
-  .hero-tagline strong{ color: var(--text-primary); font-weight: 600; }
-
-  .chip-row{ display:flex; flex-wrap:wrap; gap:8px; margin-bottom: 24px; }
-  .chip{
-    font-family: var(--mono);
-    font-size: 12.5px;
-    padding: 6px 12px;
-    border: 1px solid var(--border);
-    border-radius: 5px;
-    color: var(--text-muted);
-    background: var(--bg-panel-2);
-  }
-  .chip.accent{ color: var(--amber); border-color: rgba(255,182,39,0.35); background: var(--amber-dim); }
-
-  .contact-row{ display:flex; flex-wrap:wrap; gap:16px; padding-bottom: 18px; }
-  .contact-row a{
-    font-family: var(--mono);
-    font-size: 13.5px;
-    color: var(--text-muted);
-    text-decoration:none;
-    display:flex;
-    align-items:center;
-    gap:8px;
-    border-bottom: 1px solid transparent;
-    padding-bottom:2px;
-    transition: color .15s, border-color .15s;
-  }
-  .contact-row a:hover{ color: var(--amber); border-color: var(--amber); }
-  .contact-row svg{ width:15px; height:15px; opacity:0.8; }
-
-  /* ---------- about ---------- */
-  .about-text{ color: var(--text-muted); font-size: 15px; max-width: 66ch; line-height: 1.7; }
-  .about-text strong{ color: var(--text-primary); font-weight: 600; }
-
-  /* ---------- experience / pipeline ---------- */
-  .pipeline{ position:relative; margin-top: 6px; }
-  .pipeline::before{
-    content:"";
-    position:absolute;
-    left: 5px;
-    top: 8px;
-    bottom: 8px;
-    width: 2px;
-    background: linear-gradient(180deg, var(--amber) 0%, var(--border) 12%, var(--border) 88%, transparent 100%);
-    opacity: 0.55;
-  }
-  .job{ position:relative; padding: 0 0 28px 34px; }
-  .job:last-child{ padding-bottom: 6px; }
-  .job::before{
-    content:"";
-    position:absolute;
-    left:0; top:5px;
-    width:12px; height:12px;
-    border-radius:50%;
-    background: var(--bg);
-    border: 2px solid var(--amber);
-    box-shadow: 0 0 0 4px var(--bg);
-  }
-  .job.current::before{ background: var(--amber); box-shadow: 0 0 10px var(--amber), 0 0 0 4px var(--bg); }
-
-  .job-meta{
-    font-family: var(--mono);
-    font-size: 12px;
-    color: var(--text-faint);
-    margin-bottom: 6px;
-    display:flex; gap:10px; align-items:center; flex-wrap:wrap;
-  }
-  .job-meta .tag{
-    color: var(--green);
-    background: var(--green-dim);
-    border-radius: 4px;
-    padding: 1px 7px;
-    font-size: 11px;
-  }
-  .job h3{
-    font-family: var(--sans);
-    font-size: 18px;
-    font-weight: 600;
-    color: var(--text-primary);
-    margin-bottom: 3px;
-  }
-  .job h3 .org{ color: var(--text-muted); font-weight: 500; }
-  .job .role-sub{
-    font-family: var(--mono);
-    font-size: 12.5px;
-    color: var(--text-faint);
-    margin-bottom: 10px;
-  }
-  .job p{ color: var(--text-muted); font-size: 13.5px; max-width: 60ch; }
-
-  .experience-grid{
-    display:grid;
-    grid-template-columns: repeat(2, minmax(0, 1fr));
-    gap: 20px;
-    align-items: start;
-  }
-  .timeline-panel{
-    border: 1px solid var(--border-soft);
-    background: rgba(14, 33, 54, 0.55);
-    border-radius: 10px;
-    padding: 16px 16px 8px;
-  }
-  .timeline-panel .panel-title{
-    font-family: var(--mono);
-    font-size: 12px;
-    letter-spacing: 0.14em;
-    text-transform: uppercase;
-    color: var(--amber);
-    margin-bottom: 8px;
-  }
-  .timeline-panel .pipeline{ margin-top: 4px; }
-  .timeline-panel .job{ padding-bottom: 24px; }
-  .timeline-panel .job:last-child{ padding-bottom: 6px; }
-  .timeline-panel .job h3{ font-size: 17px; }
-  .timeline-panel .job p{ font-size: 13.5px; margin-top: 4px; }
-  .timeline-panel .edu-job::before{
-    border-color: var(--green);
-    box-shadow: 0 0 0 4px var(--bg);
-  }
-  .timeline-panel .edu-job .job-meta{ margin-bottom: 4px; }
-  @media (max-width: 760px){
-    .experience-grid{ grid-template-columns: 1fr; gap: 16px; }
-  }
-
-  /* ---------- skills ---------- */
-  .skill-group{ margin-bottom: 16px; }
-  .skill-group:last-child{ margin-bottom:0; }
-  .skill-label{
-    font-family: var(--mono);
-    font-size: 12.5px;
-    color: var(--green);
-    margin-bottom: 10px;
-  }
-  .skill-label::before{ content:"$ "; color: var(--text-faint); }
-  .tag-row{ display:flex; flex-wrap:wrap; gap:8px; }
-  .tag{
-    font-family: var(--mono);
-    font-size: 12.5px;
-    padding: 5px 11px;
-    border: 1px solid var(--border);
-    border-radius: 4px;
-    color: var(--text-muted);
-    background: var(--bg-panel-2);
-  }
-
-  .skills-certs-grid{
-    display:grid;
-    grid-template-columns: repeat(2, minmax(0, 1fr));
-    gap: 20px;
-    align-items: start;
-  }
-  .panel{
-    border: 1px solid var(--border-soft);
-    background: rgba(14, 33, 54, 0.55);
-    border-radius: 10px;
-    padding: 16px 16px 8px;
-  }
-  .panel .panel-title{
-    font-family: var(--mono);
-    font-size: 12px;
-    letter-spacing: 0.14em;
-    text-transform: uppercase;
-    color: var(--amber);
-    margin-bottom: 8px;
-  }
-  .panel .skill-group{ margin-bottom: 14px; }
-  @media (max-width: 760px){
-    .skills-certs-grid{ grid-template-columns: 1fr; gap: 16px; }
-  }
-
-  /* ---------- certifications ---------- */
-  .cert-grid{
-    display:grid;
-    grid-template-columns: 1fr;
-    gap: 10px;
-  }
-
-  .cert-card{
-    border: 1px solid var(--border);
-    background: var(--bg-panel);
-    border-radius: 8px;
-    padding: 12px;
-    display:flex;
-    gap:10px;
-    align-items:flex-start;
-    text-decoration:none;
-    transition: border-color .15s, transform .15s;
-  }
-  a.cert-card:hover{ border-color: var(--amber); transform: translateY(-2px); }
-  .cert-badge{
-    flex-shrink:0;
-    width:32px; height:32px;
-    border-radius:50%;
-    border: 1.5px solid var(--amber);
-    display:flex;
-    align-items:center;
-    justify-content:center;
-    font-family: var(--mono);
-    font-weight:700;
-    font-size:11px;
-    color: var(--amber);
-  }
-  .cert-name{ font-weight:600; font-size:13px; color: var(--text-primary); margin-bottom:2px; }
-  .cert-date{ font-family: var(--mono); font-size:10.5px; color: var(--text-faint); }
-
-  /* ---------- education ---------- */
-  .edu-item{ display:flex; gap:18px; margin-bottom: 20px; }
-  .edu-item:last-child{ margin-bottom:0; }
-  .edu-year{
-    font-family: var(--mono);
-    font-size: 12.5px;
-    color: var(--text-faint);
-    min-width: 78px;
-    padding-top: 2px;
-  }
-  .edu-body h4{ font-size:15.5px; font-weight:600; color: var(--text-primary); margin-bottom:2px; }
-  .edu-body .edu-org{ font-family: var(--mono); font-size:12.5px; color: var(--text-muted); margin-bottom:6px; }
-  .edu-body p{ font-size: 13.5px; color: var(--text-faint); max-width: 55ch; }
-
-  /* ---------- footer ---------- */
-  footer{
-    padding: 44px 0 56px;
-    text-align:center;
-  }
-  footer .foot-line{
-    font-family: var(--mono);
-    font-size: 12px;
-    color: var(--text-faint);
-  }
-  footer .foot-links{ margin-top:14px; display:flex; justify-content:center; gap:20px; flex-wrap:wrap; }
-  footer .foot-links a{ font-family: var(--mono); font-size:12.5px; color: var(--text-muted); text-decoration:none; }
-  footer .foot-links a:hover{ color: var(--amber); }
-
-  /* reveal on scroll */
-  .reveal{ opacity:0; transform: translateY(14px); transition: opacity .5s ease, transform .5s ease; }
-  .reveal.in{ opacity:1; transform: translateY(0); }
-
-  h2.section-title{
-    font-family: var(--mono);
-    font-size: 22px;
-    font-weight: 600;
-    color: var(--text-primary);
-    margin-bottom: 18px;
-  }
-</style>
+<title>Ivan Potgieter - Software Engineer</title>
+<meta name="description" content="Ivan Potgieter - Software Engineer specialising in cloud, DevOps, security, and applied AI. Based in Pretoria, South Africa.">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 32 32%22><rect width=%2232%22 height=%2232%22 rx=%227%22 fill=%22%2309-0D11%22/><text x=%2216%22 y=%2222%22 font-size=%2216%22 text-anchor=%22middle%22 fill=%22%233FDCC4%22 font-family=%22monospace%22>&gt;_</text></svg>">
+<link rel="stylesheet" href="styles.css">
 </head>
 <body>
 
-<div class="statusbar">
-  <div class="statusbar-inner">
-    <span><span class="dot"></span><span class="status-ok">operational</span></span>
-    <span class="sep">|</span>
-    <span>region: pretoria-za</span>
-    <span class="sep">|</span>
-    <span>role: software-engineer</span>
-    <div class="statusbar-spacer"></div>
-    <nav>
-      <a href="#about">about</a>
-      <a href="#experience">experience</a>
-      <a href="#skills">skills</a>
-      <a href="#certifications">certs</a>
-      <a href="#education">education</a>
+<a href="#main" class="skip-link">Skip to content</a>
+
+<header class="site-nav">
+  <div class="container nav-inner">
+    <a href="#top" class="brand" aria-label="Ivan Potgieter, home">
+      <span class="prompt-user">ivan</span><span class="prompt-sep">@</span>pretoria<span class="prompt-sep">:~$</span><span class="caret" aria-hidden="true"></span>
+    </a>
+
+    <nav id="primary-nav" class="nav-links" data-open="false" aria-label="Primary">
+      <a href="#about">About</a>
+      <a href="#experience">Experience</a>
+      <a href="#education">Education</a>
+      <a href="#skills">Skills</a>
+      <a href="#certifications">Certifications</a>
+      <a href="#projects">Projects</a>
+      <a href="#contact">Contact</a>
     </nav>
+
+    <div class="nav-controls">
+      <button class="icon-btn theme-toggle" id="theme-toggle" type="button" aria-label="Toggle dark and light theme">
+        <svg class="icon-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><circle cx="12" cy="12" r="4.5"/><path d="M12 2.5v2.5M12 19v2.5M4.2 4.2l1.8 1.8M18 18l1.8 1.8M2.5 12H5M19 12h2.5M4.2 19.8L6 18M18 6l1.8-1.8"/></svg>
+        <svg class="icon-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M20 14.2A8.2 8.2 0 1 1 9.8 4a6.4 6.4 0 0 0 10.2 10.2z"/></svg>
+      </button>
+      <button class="icon-btn nav-toggle" id="nav-toggle" type="button" aria-label="Toggle navigation menu" aria-expanded="false" aria-controls="primary-nav">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="M3 6h18M3 12h18M3 18h18"/></svg>
+      </button>
+    </div>
   </div>
-</div>
+</header>
 
-<main>
+<main id="main">
 
-  <section class="hero">
-    <div class="hero-kicker">$ whoami<span class="caret"></span></div>
-    <h1>Ivan <span>Potgieter</span></h1>
-    <div class="hero-role">Software Engineer - Cloud, DevOps &amp; Security</div>
-    <p class="hero-tagline">
-      I'm a <strong>Software Engineer at the BMW IT Hub South Africa</strong>, with around three
-      years of experience across Microsoft Azure and AWS. I started out on a large product
-      Bill-of-Materials (PLM) backbone on Azure, and today I work on an
-      <strong>AI-powered knowledge platform on AWS</strong> - where I focus on Infrastructure as
-      Code (Terraform), CI/CD pipelines (GitHub Actions), and cloud security: vulnerability
-      remediation, TLS/PKI, WAF, and dependency modernisation. I care about clean automation,
-      secure-by-default systems, and continuously levelling up.
-    </p>
-    <div class="chip-row">
-      <span class="chip accent">AWS Certified Solutions Architect - Associate</span>
-      <span class="chip">Terraform</span>
-      <span class="chip">GitHub Actions</span>
-      <span class="chip">DevSecOps</span>
-    </div>
-    <div class="contact-row">
-      <a href="mailto:ivanpotgietergithub@gmail.com">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="M3 7l9 6 9-6"/></svg>
-        ivanpotgietergithub@gmail.com
-      </a>
-      <a href="https://linkedin.com/in/ivanpotgieter" target="_blank" rel="noopener">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="3" y="3" width="18" height="18" rx="2"/><line x1="8" y1="10" x2="8" y2="17"/><circle cx="8" cy="7" r="1"/><path d="M12 17v-4a2 2 0 0 1 4 0v4"/></svg>
-        linkedin.com/in/ivanpotgieter
-      </a>
-      <a href="https://github.com/ivanpotgieter01" target="_blank" rel="noopener">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M9 19c-4.3 1.4-4.3-2.5-6-3m12 5v-3.5c0-1 .1-1.4-.5-2 2.8-.3 5.5-1.4 5.5-6a4.6 4.6 0 0 0-1.3-3.2 4.2 4.2 0 0 0-.1-3.2s-1.1-.3-3.5 1.3a12.3 12.3 0 0 0-6.2 0C6.5 2.8 5.4 3.1 5.4 3.1a4.2 4.2 0 0 0-.1 3.2A4.6 4.6 0 0 0 4 9.5c0 4.6 2.7 5.7 5.5 6-.6.6-.6 1.2-.5 2V21"/></svg>
-        github.com/ivanpotgieter01
-      </a>
+  <!-- HERO -->
+  <section class="hero" id="top">
+    <div class="hero-grid" aria-hidden="true"></div>
+    <div class="hero-glow" aria-hidden="true"></div>
+    <div class="container hero-inner">
+      <h1>Ivan Potgieter</h1>
+      <p class="role">Software Engineer</p>
+      <p class="tagline"><span class="comment-mark">// </span>Cloud, DevOps, Security &amp; AI - I automate and secure the platforms teams rely on, and build with modern AI.</p>
+      <p class="location mono">📍 Pretoria, South Africa</p>
+      <div class="hero-ctas">
+        <a class="btn btn-primary" href="#contact">
+          Get in touch
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+        </a>
+      </div>
     </div>
   </section>
 
-  <section id="experience" class="reveal">
-    <div class="eyebrow">experience</div>
-    <h2 class="section-title">Where I've worked</h2>
-
-    <div class="experience-grid">
-      <div class="timeline-panel">
-        <div class="panel-title">Experience</div>
-        <div class="pipeline">
-          <div class="job current">
-            <div class="job-meta">2026 - present <span class="tag">current</span></div>
-            <h3>Software Engineer <span class="org">- BMW IT Hub</span></h3>
-            <div class="role-sub">Serverless AI knowledge platform · AWS</div>
-            <p>
-              Engineer on a serverless, AI-powered knowledge platform on AWS (Lambda, ECS Fargate,
-              OpenSearch, API Gateway). Infrastructure as Code with Terraform, CI/CD governance with
-              GitHub Actions, and end-to-end DevSecOps - vulnerability remediation, TLS/PKI &amp;
-              certificate lifecycle, WAF data protection, and runtime modernisation.
-            </p>
-          </div>
-
-          <div class="job">
-            <div class="job-meta">2024 - 2025</div>
-            <h3>Software Engineer <span class="org">- BMW IT Hub (Graduate Programme)</span></h3>
-            <div class="role-sub">Product BOM / PLM backbone · Azure</div>
-            <p>
-              Operated and automated a global product Bill-of-Materials backbone (PTC Windchill) on
-              Microsoft Azure. Migrated and hardened CI/CD from Bitbucket to GitHub, ran production
-              deployments and smoke tests, and managed enterprise network &amp; firewall changes.
-            </p>
-          </div>
-
-          <div class="job">
-            <div class="job-meta">2023</div>
-            <h3>Cloud Support Immersion Programme <span class="org">- Amazon AWS</span></h3>
-            <div class="role-sub">AWS Summer &amp; Winter School</div>
-            <p>
-              Intensive AWS training covering cloud fundamentals, troubleshooting, and implementing
-              a proposed cloud solution under mentorship from AWS professionals.
-            </p>
-          </div>
-
-          <div class="job">
-            <div class="job-meta">2021</div>
-            <h3>Help Desk Internship <span class="org">- Techfusion</span></h3>
-            <div class="role-sub">Technical support</div>
-            <p>
-              Built strong communication, problem-solving, and customer-service foundations in a
-              technical support environment.
-            </p>
-          </div>
+  <!-- ABOUT -->
+  <section id="about">
+    <div class="container">
+      <div class="section-head">
+        <span class="eyebrow">01 · About</span>
+        <h2>A bit about how I work</h2>
+      </div>
+      <div class="about-layout">
+        <div class="about-text reveal">
+          <p>I'm a Software Engineer at the <strong>BMW IT Hub South Africa</strong>, focused on cloud, DevOps, security, and applied AI. I automate and secure infrastructure across <strong>AWS and Azure</strong> using Terraform, GitHub Actions, and a lot of PowerShell and Bash - with a strong DevSecOps focus: vulnerability management and code scanning, GitHub Advanced Security, TLS/PKI and certificate management, security-posture reporting, and test automation.</p>
+          <p>I currently work on a serverless, AI-powered knowledge platform built around <strong>retrieval-augmented generation (RAG)</strong>, and I'm just as hands-on with applied AI day to day - context engineering for large language models and building AI-assisted engineering workflows with coding agents and the Model Context Protocol (MCP).</p>
+          <p>I enjoy turning manual, risky processes into automated, secure, and repeatable ones, and I'm <strong>AWS Certified Solutions Architect – Associate</strong>.</p>
         </div>
+        <dl class="about-facts reveal">
+          <div class="fact">
+            <dt>Based in</dt>
+            <dd>Pretoria, South Africa</dd>
+          </div>
+          <div class="fact">
+            <dt>Focus</dt>
+            <dd>Cloud · DevOps · Security · AI</dd>
+          </div>
+          <div class="fact">
+            <dt>Currently</dt>
+            <dd>BMW IT Hub South Africa</dd>
+          </div>
+          <div class="fact">
+            <dt>Certified</dt>
+            <dd>AWS Solutions Architect – Associate</dd>
+          </div>
+        </dl>
+      </div>
+    </div>
+  </section>
+
+  <!-- EXPERIENCE -->
+  <section id="experience">
+    <div class="container">
+      <div class="section-head">
+        <span class="eyebrow">02 · Experience</span>
+        <h2>Where I've deployed</h2>
+        <p class="lede">A log of roles, most recent first.</p>
       </div>
 
-      <div class="timeline-panel">
-        <div class="panel-title">Education</div>
-        <div class="pipeline">
-          <div class="job edu-job">
-            <div class="job-meta">2021 - 2023</div>
-            <h3>BSc IT</h3>
-            <div class="role-sub">North-West University</div>
-            <p>Graduated with distinction.</p>
+      <ol class="timeline">
+        <li class="timeline-item is-current">
+          <span class="timeline-node" aria-hidden="true"></span>
+          <div class="timeline-card">
+            <div class="timeline-meta">
+              <span class="timeline-date">2026 - Present</span>
+              <span class="timeline-status">Cloud · DevOps · Security · AI</span>
+            </div>
+            <h3>Software Engineer</h3>
+            <p class="timeline-org">BMW IT Hub South Africa</p>
+            <p class="timeline-desc">Engineer on a serverless, AI-powered internal knowledge &amp; Q&amp;A platform on AWS built around retrieval-augmented generation (RAG). I lead security remediation (vulnerability management, dependency and CVE patching), build CI/CD governance and release automation with GitHub Actions, manage the TLS/certificate lifecycle, work on context engineering for the LLM, and report on the product's security posture.</p>
           </div>
+        </li>
 
-          <div class="job edu-job">
-            <div class="job-meta">2018</div>
+        <li class="timeline-item">
+          <span class="timeline-node" aria-hidden="true"></span>
+          <div class="timeline-card">
+            <div class="timeline-meta">
+              <span class="timeline-date">2024 - 2025</span>
+              <span class="timeline-status">Cloud &amp; DevOps · Azure</span>
+            </div>
+            <h3>Software Engineer</h3>
+            <p class="timeline-org">BMW IT Hub South Africa</p>
+            <p class="timeline-desc">Automated and supported a large enterprise platform on Microsoft Azure. Migrated CI/CD from Bitbucket to GitHub, hardened pipelines with test automation and GitHub Advanced Security, ran production deployments and smoke tests, and managed enterprise network and firewall changes. Entered via the BMW IT Hub graduate programme.</p>
+          </div>
+        </li>
+
+        <li class="timeline-item">
+          <span class="timeline-node" aria-hidden="true"></span>
+          <div class="timeline-card">
+            <div class="timeline-meta">
+              <span class="timeline-date">2023</span>
+            </div>
+            <h3>Cloud Support Immersion Programme</h3>
+            <p class="timeline-org">Amazon AWS</p>
+            <p class="timeline-desc">Intensive AWS training (Summer &amp; Winter School): cloud fundamentals, troubleshooting, and implementing a proposed cloud solution under mentorship from AWS professionals.</p>
+          </div>
+        </li>
+
+        <li class="timeline-item">
+          <span class="timeline-node" aria-hidden="true"></span>
+          <div class="timeline-card">
+            <div class="timeline-meta">
+              <span class="timeline-date">2021</span>
+            </div>
+            <h3>Help Desk Internship</h3>
+            <p class="timeline-org">Techfusion</p>
+            <p class="timeline-desc">Built strong communication, problem-solving, and customer-service foundations in a technical support role.</p>
+          </div>
+        </li>
+      </ol>
+    </div>
+  </section>
+
+  <!-- EDUCATION -->
+  <section id="education">
+    <div class="container">
+      <div class="section-head">
+        <span class="eyebrow">03 · Education</span>
+        <h2>Where it started</h2>
+      </div>
+
+      <ol class="timeline">
+        <li class="timeline-item">
+          <span class="timeline-node" aria-hidden="true"></span>
+          <div class="timeline-card">
+            <div class="timeline-meta">
+              <span class="timeline-date">2021 - 2023</span>
+            </div>
+            <h3>BSc Information Technology</h3>
+            <p class="timeline-org">North-West University</p>
+            <p class="timeline-desc">Graduated with distinction.</p>
+          </div>
+        </li>
+
+        <li class="timeline-item">
+          <span class="timeline-node" aria-hidden="true"></span>
+          <div class="timeline-card">
+            <div class="timeline-meta">
+              <span class="timeline-date">2018</span>
+            </div>
             <h3>Diploma in Security Management</h3>
-            <div class="role-sub">UNISA</div>
+            <p class="timeline-org">UNISA</p>
           </div>
+        </li>
 
-          <div class="job edu-job">
-            <div class="job-meta">2017</div>
+        <li class="timeline-item">
+          <span class="timeline-node" aria-hidden="true"></span>
+          <div class="timeline-card">
+            <div class="timeline-meta">
+              <span class="timeline-date">2017</span>
+            </div>
             <h3>Matric</h3>
-            <div class="role-sub">Hoërskool Waterkloof</div>
-            <p>Matriculated with distinctions.</p>
+            <p class="timeline-org">Hoërskool Waterkloof</p>
+            <p class="timeline-desc">Graduated with distinctions.</p>
+          </div>
+        </li>
+      </ol>
+    </div>
+  </section>
+
+  <!-- SKILLS -->
+  <section id="skills">
+    <div class="container">
+      <div class="section-head">
+        <span class="eyebrow">04 · Skills</span>
+        <h2>Toolbox</h2>
+      </div>
+
+      <div class="skills-grid">
+        <div class="skill-group">
+          <h3>DevOps &amp; Automation</h3>
+          <div class="chip-list">
+            <span class="chip">Git &amp; GitHub</span>
+            <span class="chip">GitHub Actions (CI/CD)</span>
+            <span class="chip">Terraform</span>
+            <span class="chip">PowerShell</span>
+            <span class="chip">Bash</span>
+            <span class="chip">Linux</span>
+            <span class="chip">Docker</span>
+          </div>
+        </div>
+
+        <div class="skill-group">
+          <h3>Cloud</h3>
+          <div class="chip-list">
+            <span class="chip">AWS Lambda</span>
+            <span class="chip">S3</span>
+            <span class="chip">IAM</span>
+            <span class="chip">ACM</span>
+            <span class="chip">CloudWatch</span>
+            <span class="chip">OpenSearch</span>
+            <span class="chip">DynamoDB</span>
+            <span class="chip">Microsoft Azure</span>
+          </div>
+        </div>
+
+        <div class="skill-group">
+          <h3>AI Engineering</h3>
+          <div class="chip-list">
+            <span class="chip">RAG &amp; LLM applications</span>
+            <span class="chip">Context engineering</span>
+            <span class="chip">Agentic development</span>
+            <span class="chip">Model Context Protocol</span>
+            <span class="chip">LLM API integration</span>
+          </div>
+        </div>
+
+        <div class="skill-group">
+          <h3>Security / DevSecOps</h3>
+          <div class="chip-list">
+            <span class="chip">Wiz</span>
+            <span class="chip">SonarQube</span>
+            <span class="chip">CodeQL</span>
+            <span class="chip">Checkov</span>
+            <span class="chip">GitHub Advanced Security</span>
+            <span class="chip">TLS/PKI</span>
+            <span class="chip">Security-posture reporting</span>
+            <span class="chip">Test automation</span>
+          </div>
+        </div>
+
+        <div class="skill-group">
+          <h3>Languages &amp; Data</h3>
+          <div class="chip-list">
+            <span class="chip">PowerShell</span>
+            <span class="chip">Bash</span>
+            <span class="chip">Python</span>
+            <span class="chip">SQL</span>
           </div>
         </div>
       </div>
     </div>
   </section>
 
-  <section id="skills" class="reveal">
-    <div class="eyebrow">skills & certifications</div>
-    <h2 class="section-title">Tools & Credentials</h2>
+  <!-- CERTIFICATIONS -->
+  <section id="certifications">
+    <div class="container">
+      <div class="section-head">
+        <span class="eyebrow">05 · Certifications</span>
+        <h2>Credentials</h2>
+      </div>
 
-    <div class="skills-certs-grid">
-      <div class="panel">
-        <div class="panel-title">Skills</div>
-
-        <div class="skill-group">
-          <div class="skill-label">cloud</div>
-          <div class="tag-row">
-            <span class="tag">AWS Lambda</span><span class="tag">ECS Fargate</span>
-            <span class="tag">OpenSearch</span><span class="tag">API Gateway</span>
-            <span class="tag">ACM</span><span class="tag">WAF</span>
-            <span class="tag">Microsoft Azure</span>
+      <div class="cert-grid">
+        <div class="cert-card">
+          <span class="cert-icon" aria-hidden="true">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2 4 5v6c0 5 3.4 8.7 8 9 4.6-.3 8-4 8-9V5l-8-3z"/><path d="M9 12l2 2 4-4"/></svg>
+          </span>
+          <div>
+            <h3>AWS Certified Solutions Architect – Associate</h3>
+            <p class="cert-meta">Amazon Web Services · 2024</p>
           </div>
         </div>
 
-        <div class="skill-group">
-          <div class="skill-label">iac_and_cicd</div>
-          <div class="tag-row">
-            <span class="tag">Terraform</span><span class="tag">GitHub Actions</span>
-            <span class="tag">Docker</span>
+        <div class="cert-card">
+          <span class="cert-icon" aria-hidden="true">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2 4 5v6c0 5 3.4 8.7 8 9 4.6-.3 8-4 8-9V5l-8-3z"/><path d="M9 12l2 2 4-4"/></svg>
+          </span>
+          <div>
+            <h3>AWS Certified Cloud Practitioner</h3>
+            <p class="cert-meta">Amazon Web Services · 2023</p>
           </div>
         </div>
 
-        <div class="skill-group">
-          <div class="skill-label">devsecops</div>
-          <div class="tag-row">
-            <span class="tag">Wiz</span><span class="tag">SonarQube</span>
-            <span class="tag">CodeQL</span><span class="tag">Checkov</span>
-            <span class="tag">GitHub Advanced Security</span><span class="tag">TLS / PKI</span>
+        <div class="cert-card">
+          <span class="cert-icon" aria-hidden="true">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2 4 5v6c0 5 3.4 8.7 8 9 4.6-.3 8-4 8-9V5l-8-3z"/><path d="M9 12l2 2 4-4"/></svg>
+          </span>
+          <div>
+            <h3>Microsoft Certified: Azure Fundamentals</h3>
+            <p class="cert-meta">Microsoft · 2022</p>
           </div>
         </div>
 
-        <div class="skill-group">
-          <div class="skill-label">languages_and_data</div>
-          <div class="tag-row">
-            <span class="tag">Python</span><span class="tag">Bash</span>
-            <span class="tag">PowerShell</span><span class="tag">SQL</span>
-            <span class="tag">PostgreSQL</span><span class="tag">Oracle</span>
+        <div class="cert-card">
+          <span class="cert-icon" aria-hidden="true">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2 4 5v6c0 5 3.4 8.7 8 9 4.6-.3 8-4 8-9V5l-8-3z"/><path d="M9 12l2 2 4-4"/></svg>
+          </span>
+          <div>
+            <h3>CompTIA A+ ce</h3>
+            <p class="cert-meta">CompTIA · 2021</p>
+          </div>
+        </div>
+
+        <div class="cert-card">
+          <span class="cert-icon" aria-hidden="true">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2 4 5v6c0 5 3.4 8.7 8 9 4.6-.3 8-4 8-9V5l-8-3z"/><path d="M9 12l2 2 4-4"/></svg>
+          </span>
+          <div>
+            <h3>SQL (Basic)</h3>
+            <p class="cert-meta">HackerRank · 2023</p>
           </div>
         </div>
       </div>
+    </div>
+  </section>
 
-      <div class="panel">
-        <div class="panel-title">Certifications</div>
+  <!-- PROJECTS -->
+  <section id="projects">
+    <div class="container">
+      <div class="section-head">
+        <span class="eyebrow">06 · University &amp; Personal Projects</span>
+        <h2>Things I've built</h2>
+        <p class="lede">Earlier learning and side projects.</p>
+      </div>
 
-        <div class="cert-grid">
-          <a class="cert-card" href="https://www.credly.com/earner/earned/badge/627b6a39-f611-46f8-bf84-5c3625ee3814" target="_blank" rel="noopener">
-            <div class="cert-badge">SA</div>
-            <div>
-              <div class="cert-name">AWS Certified Solutions Architect - Associate</div>
-              <div class="cert-date">Aug 2024 - Aug 2027</div>
-            </div>
+      <div class="project-grid">
+        <div class="project-card">
+          <div class="project-top">
+            <h3>DocBot - Medical Chatbot</h3>
+            <a class="project-link" href="https://github.com/IvanPotgieter01/DocBot-Medical-Chatbot" target="_blank" rel="noopener" aria-label="View DocBot on GitHub">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M9 18c-4.5 1.5-4.5-2.5-6-3m12 5v-3.5c0-1 .1-1.4-.5-2 2.8-.3 5.5-1.4 5.5-6a4.6 4.6 0 0 0-1.3-3.2 4.2 4.2 0 0 0-.1-3.2s-1.1-.3-3.5 1.3a12.3 12.3 0 0 0-6.2 0C6.5 2.8 5.4 3.1 5.4 3.1a4.2 4.2 0 0 0-.1 3.2A4.6 4.6 0 0 0 4 9.5c0 4.6 2.7 5.7 5.5 6-.6.6-.6 1.2-.5 2V21"/></svg>
+            </a>
+          </div>
+          <p>A serverless AWS virtual healthcare assistant using the OpenAI API.</p>
+          <div class="project-tech">
+            <span>JavaScript</span>
+            <span>AWS</span>
+          </div>
+        </div>
+
+        <div class="project-card">
+          <div class="project-top">
+            <h3>File Encryption</h3>
+            <a class="project-link" href="https://github.com/IvanPotgieter01/File-Encryption" target="_blank" rel="noopener" aria-label="View File Encryption on GitHub">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M9 18c-4.5 1.5-4.5-2.5-6-3m12 5v-3.5c0-1 .1-1.4-.5-2 2.8-.3 5.5-1.4 5.5-6a4.6 4.6 0 0 0-1.3-3.2 4.2 4.2 0 0 0-.1-3.2s-1.1-.3-3.5 1.3a12.3 12.3 0 0 0-6.2 0C6.5 2.8 5.4 3.1 5.4 3.1a4.2 4.2 0 0 0-.1 3.2A4.6 4.6 0 0 0 4 9.5c0 4.6 2.7 5.7 5.5 6-.6.6-.6 1.2-.5 2V21"/></svg>
+            </a>
+          </div>
+          <p>Encrypts and decrypts files - including JPEG, TXT, and PDF formats.</p>
+          <div class="project-tech">
+            <span>C#</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CONTACT -->
+  <section id="contact" class="contact-section">
+    <div class="container">
+      <div class="contact-panel reveal">
+        <div>
+          <span class="eyebrow">07 · Contact</span>
+          <h2>Let's talk</h2>
+          <p class="lede">Open to conversations about cloud, DevOps, security, and applied AI work. Reach out however suits you best.</p>
+        </div>
+        <div class="contact-links">
+          <a href="mailto:ivanpotgietergithub@gmail.com">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="m3 7 9 6 9-6"/></svg>
+            ivanpotgietergithub@gmail.com
           </a>
-          <a class="cert-card" href="https://www.credly.com/earner/earned/badge/470d3c39-71ae-493b-920b-92aed7f123ee" target="_blank" rel="noopener">
-            <div class="cert-badge">CP</div>
-            <div>
-              <div class="cert-name">AWS Certified Cloud Practitioner</div>
-              <div class="cert-date">Oct 2023 - Oct 2026</div>
-            </div>
+          <a href="https://www.linkedin.com/in/ivanpotgieter/" target="_blank" rel="noopener">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M7 10v7M7 7v.01M12 17v-4.5a2.5 2.5 0 0 1 5 0V17M12 12.5V17"/></svg>
+            linkedin.com/in/ivanpotgieter
           </a>
-          <a class="cert-card" href="https://www.credly.com/badges/89a57378-d460-4b83-8cb3-bf29d7cd1e89" target="_blank" rel="noopener">
-            <div class="cert-badge">AZ</div>
-            <div>
-              <div class="cert-name">Microsoft Certified: Azure Fundamentals</div>
-              <div class="cert-date">Jan 2022</div>
-            </div>
-          </a>
-          <a class="cert-card" href="https://www.credly.com/badges/050e70ea-5eb6-473d-9ea3-821150606308" target="_blank" rel="noopener">
-            <div class="cert-badge">A+</div>
-            <div>
-              <div class="cert-name">CompTIA A+ ce</div>
-              <div class="cert-date">Mar 2021 - Mar 2027</div>
-            </div>
+          <a href="https://github.com/IvanPotgieter01" target="_blank" rel="noopener">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M9 18c-4.5 1.5-4.5-2.5-6-3m12 5v-3.5c0-1 .1-1.4-.5-2 2.8-.3 5.5-1.4 5.5-6a4.6 4.6 0 0 0-1.3-3.2 4.2 4.2 0 0 0-.1-3.2s-1.1-.3-3.5 1.3a12.3 12.3 0 0 0-6.2 0C6.5 2.8 5.4 3.1 5.4 3.1a4.2 4.2 0 0 0-.1 3.2A4.6 4.6 0 0 0 4 9.5c0 4.6 2.7 5.7 5.5 6-.6.6-.6 1.2-.5 2V21"/></svg>
+            github.com/IvanPotgieter01
           </a>
         </div>
       </div>
@@ -616,24 +410,13 @@
 
 </main>
 
-<footer>
-  <div class="foot-line">// built by Ivan Potgieter · Pretoria, South Africa · <span id="year"></span></div>
-  <div class="foot-links">
-    <a href="mailto:ivanpotgietergithub@gmail.com">email</a>
-    <a href="https://linkedin.com/in/ivanpotgieter" target="_blank" rel="noopener">linkedin</a>
-    <a href="https://github.com/ivanpotgieter01" target="_blank" rel="noopener">github</a>
+<footer class="site-footer">
+  <div class="container footer-inner">
+    <span>Pretoria, South Africa</span>
+    <span>&copy; <span id="year"></span> Ivan Potgieter. Built with HTML, CSS &amp; a bit of JS.</span>
   </div>
 </footer>
 
-<script>
-  document.getElementById('year').textContent = new Date().getFullYear();
-
-  const revealEls = document.querySelectorAll('.reveal');
-  const io = new IntersectionObserver((entries) => {
-    entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('in'); io.unobserve(e.target); } });
-  }, { threshold: 0.12 });
-  revealEls.forEach(el => io.observe(el));
-</script>
-
+<script src="script.js"></script>
 </body>
 </html>
