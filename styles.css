@@ -1,5 +1,5 @@
 /* =========================================================
-   Ivan Potgieter — Portfolio / CV
+   Ivan Potgieter - Portfolio / CV
    Design language: terminal prompt + git-log / CI pipeline.
    ========================================================= */
 
@@ -721,6 +721,10 @@ section:last-of-type { border-bottom: none; }
 }
 .contact-links a:hover { border-color: var(--accent); color: var(--accent); transform: translateX(3px); }
 .contact-links svg { width: 18px; height: 18px; flex-shrink: 0; }
+.contact-text {
+  min-width: 0;
+  overflow-wrap: anywhere;
+}
 
 @media (max-width: 780px) {
   .contact-panel { grid-template-columns: 1fr; }
